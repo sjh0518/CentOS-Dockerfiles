@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+  centos7:
+    image: jdeathe/centos-ssh:2.6.1
+    ports:
+      - "2007:22"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      SSH_PASSWORD_AUTHENTICATION: "true"
+      SSH_USER: admin
+      SSH_USER_PASSWORD: admin
+      SYSTEM_TIMEZONE: Asia/Shanghai
+      SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
+
+  centos6:
+    image: jdeathe/centos-ssh:1.11.1
+    ports:
+      - "2006:22"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      SSH_PASSWORD_AUTHENTICATION: "true"
+      SSH_USER: admin
+      SSH_USER_PASSWORD: admin
+      SYSTEM_TIMEZONE: Asia/Shanghai
+      SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
+
+  ubuntu16:
+    image: rastasheep/ubuntu-sshd:16.04
+    ports:
+      - "2016:22"
+#    command: sh -c "apt-get update;apt-get -y install dialog apt-utils  tzdata;ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime"
+#    command: sh -c "apt-get update"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    privileged: true
+
+volumes:
+  mysql-data:
+
